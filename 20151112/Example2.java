@@ -1,42 +1,34 @@
 package kr.co.ioacademy;
 
-class Unit {
-  private String name = null;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
-  public String name() {
-    return name;
-  }
+public class Example2 {
+    /*
+    private static final Integer[] VALUES =
+            { 1, 2, 3, 4, 5 };
 
-  protected void initialize() {
-    name = "Unit";
-  }
+    // 해결 방법 1. 방어 복사본
+    public static Integer[] values() {
+        return VALUES.clone();
+    }
+    */
 
-  public Unit() {
-    initialize();
-  }
-}
+    // 해결 방법 2. 수정불가 컬렉션 사용 - UnsupportedOperationException
+    private static final Integer[] PRIVATE_VALUES = {1, 2, 3, 4, 5};
+    public static final Collection<Integer> VALUES =
+            Collections.unmodifiableCollection(Arrays.asList(PRIVATE_VALUES));
+
+    public static void main(String[] args) {
+        Collection<Integer> arr = Example2.VALUES;
+        arr.add(10);
+
+        for (Integer e : VALUES) {
+            System.out.println(e);
+        }
+    }
 
 
-class SCV extends Unit {
-  private int level;
-
-  public int level() {
-    return level;
-  }
-
-  public SCV() {
-    initialize();
-  }
-
-  protected void initialize() {
-    level = 1;
-  }
-}
-
-public class Example11 {
-  public static void main(String[] args) {
-    SCV u = new SCV();
-    System.out.println(u.level());
-    System.out.println(u.name());
-  }
 }
